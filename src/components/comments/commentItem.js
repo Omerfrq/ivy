@@ -1,6 +1,8 @@
 import React from 'react';
 import date from '../../utils/date';
 
+const defaultImage =
+  'https://images.macrumors.com/t/XjzsIpBxeGphVqiWDqCzjDgY4Ck=/800x0/article-new/2019/04/guest-user-250x250.jpg';
 export const CommentItem = ({ comment }) => {
   const { imageUrl, name } = comment.userId;
   const { text, createdAt } = comment;
@@ -9,7 +11,7 @@ export const CommentItem = ({ comment }) => {
       <div class='col col-lg-1 mb-3 mb-lg-0'>
         <img
           class='custom-user-pic rounded-circle custom-shadow-box'
-          src={imageUrl}
+          src={imageUrl || defaultImage}
           alt='user'
         />
       </div>

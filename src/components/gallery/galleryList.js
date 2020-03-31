@@ -11,8 +11,9 @@ export const GalleryList = () => {
   useEffect(() => {
     if (state.isAuthenticated) {
       setLoading(true);
+      const id = state.type === 'guest' ? state.guest.id : state.user._id;
       axios
-        .get(`/post/get/all/${state.user._id}/mostLiked`)
+        .get(`/post/get/all/${id}/mostLiked`)
         .then(res => {
           setLoading(false);
           setPosts(res.data);

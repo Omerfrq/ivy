@@ -7,11 +7,15 @@ import { GlobalContext } from '../../context/GlobalContext';
 import { NotificationContainer } from 'react-notifications';
 import Notification from '../../utils/notification';
 import { Link } from 'react-router-dom';
+import { useGuestSignup } from '../hooks/useGuest';
 
 export const SigninForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { register, errors, handleSubmit, reset } = useForm();
   const { login } = useContext(GlobalContext);
+
+  const { loginGuest } = useGuestSignup();
+
   const onSubmit = data => {
     setIsLoading(true);
     axios
@@ -81,7 +85,15 @@ export const SigninForm = () => {
             <Link to='/signup'>Signup</Link>{' '}
           </span>
         </p>
+        <div></div>
       </Form>
+      <Button
+        onClick={() => {
+          loginGuest();
+        }}
+      >
+        Continue as Guest
+      </Button>
     </div>
   );
 };

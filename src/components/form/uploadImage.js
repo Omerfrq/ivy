@@ -27,14 +27,15 @@ export const UploadImage = ({ setModal }) => {
 
   const onSubmit = data => {
     setLoading(true);
-    const { tags, activeFilter, user } = state;
+    const { tags, activeFilter } = state;
     const { description, title } = data;
     if (file === undefined) {
       Notification('error', 'No Image Selected', 'Error', 1000);
       setLoading(false);
     } else {
       const formdata = new FormData();
-      formdata.append('postBy', user._id);
+      const id = state.type === 'guest' ? state.guest.id : state.user._id;
+      formdata.append('postBy', id);
       formdata.append('mediaUrl', file);
       formdata.append('description', description);
       formdata.append('title', title);
@@ -45,11 +46,17 @@ export const UploadImage = ({ setModal }) => {
         .post('/post/add', formdata)
         .then(res => {
           setLoading(false);
-          Notification('success', 'Image Uploaded Successfully.', 1000);
+          Notification(
+            'success',
+            'Image Uploaded Successfully.',
+            'Success',
+            1000
+          );
           reset();
           resetPlaceholder();
         })
         .catch(err => {
+          setLoading(false);
           Notification('error', 'Unable to Upload Image.', 'Error', 1000);
         });
     }

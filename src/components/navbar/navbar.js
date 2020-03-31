@@ -56,9 +56,7 @@ export const Appbar = () => {
             </NavItem> */}
 
             <NavItem className='cursor-pointer'>
-              <NavLink color='danger' onClick={toggle}>
-                New Post
-              </NavLink>
+              <NavLink onClick={toggle}>New Post</NavLink>
               <Modal
                 className='modal-dialog custom-modal-dialog modal-dialog-centered m-0 m-md-auto'
                 isOpen={modal}
@@ -70,25 +68,33 @@ export const Appbar = () => {
               </Modal>
             </NavItem>
 
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav>
-                {state.isAuthenticated ? (
-                  <>
-                    <img
-                      className='img-fluid rounded-circle
-                         custom-nav-user-pic custom-shadow-box'
-                      src={state.user.imageUrl}
-                      alt={state.user.name}
-                    />
-                  </>
+            {state.isAuthenticated ? (
+              <>
+                {state.type === 'guest' ? (
+                  <NavItem className='cursor-pointer'>
+                    <NavLink>Logged In As Model</NavLink>
+                  </NavItem>
                 ) : (
-                  ''
+                  <>
+                    <UncontrolledDropdown nav inNavbar>
+                      <DropdownToggle nav>
+                        <img
+                          className='img-fluid rounded-circle
+                         custom-nav-user-pic custom-shadow-box'
+                          src={state.user?.imageUrl}
+                          alt={state.user?.name}
+                        />
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        <DropdownItem onClick={Logout}>Logout</DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </>
                 )}
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem onClick={Logout}>Logout</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+              </>
+            ) : (
+              ''
+            )}
           </Nav>
         </Navbar>
       ) : (

@@ -7,20 +7,21 @@ import { GlobalContext } from '../context/GlobalContext';
 
 export const SinglePost = () => {
   const params = useParams();
-  const { state } = useContext(GlobalContext);
-  const [post, setPost] = useState();
+  const { state, setActive } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
+  const { activePost } = state;
   useEffect(() => {
     if (state.isAuthenticated) {
+      const id = state.type === 'guest' ? state.guest.id : state.user._id;
       axios
-        .get(`/post/get/${params.id}/${state.user._id}`)
+        .get(`/post/get/${params.id}/${id}`)
         .then(res => {
-          console.log(res.data.article);
-          setPost(res.data.article);
+          setActive(res.data.article);
           setIsLoading(false);
         })
         .catch(err => console.log(err.response));
     }
+    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return (
     <>
@@ -32,13 +33,13 @@ export const SinglePost = () => {
             <header class='pt-4 mx-auto'>
               <div class='h2 text-uppercase'>Single Image</div>
               <img
-                class={`img-fluid ${post.filter}`}
-                src={post.mediaUrl}
+                class={`img-fluid ${activePost.filter}`}
+                src={activePost.mediaUrl}
                 alt='Pic'
               />
             </header>
-            <CommentList comments={post.comments} />
-            <AddComment />
+            <CommentList comments={activePost.comments} />
+            <AddComment resourceId={activePost._id} />
           </section>
         )}
       </div>

@@ -46,6 +46,10 @@ export default (state, action) => {
       state.activeFilter = action.payload;
       return;
 
+    case 'SET_ACTIVE':
+      state.activePost = action.payload;
+      return;
+
     default:
       return state;
   }

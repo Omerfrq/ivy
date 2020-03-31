@@ -7,7 +7,8 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   activeFilter: '',
-  type: null
+  type: null,
+  activePost: []
 };
 
 export const GlobalContext = createContext(initialState);
@@ -54,6 +55,13 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const setActive = payload => {
+    dispatch({
+      type: 'SET_ACTIVE',
+      payload
+    });
+  };
+
   const setFilter = payload => {
     dispatch({
       type: 'SET_FILTER',
@@ -78,7 +86,8 @@ export const GlobalProvider = ({ children }) => {
         guestLogin,
         addTag,
         removeTag,
-        setFilter
+        setFilter,
+        setActive
       }}
     >
       {children}
