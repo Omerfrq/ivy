@@ -5,8 +5,8 @@ import { GlobalContext } from '../../context/GlobalContext';
 import axios from 'axios';
 
 export const AddComment = ({ resourceId }) => {
-  const { register, handleSubmit, errors } = useForm();
-  const { state } = useContext(GlobalContext);
+  const { register, handleSubmit, errors, reset } = useForm();
+  const { state, updateComment } = useContext(GlobalContext);
 
   const onSubmit = data => {
     const { text } = data;
@@ -20,7 +20,8 @@ export const AddComment = ({ resourceId }) => {
     axios
       .post('/comment/add', payload)
       .then(res => {
-        console.log(res.data);
+        updateComment(res.data.savedComment);
+        reset();
       })
       .catch(err => {
         console.log(err.response);

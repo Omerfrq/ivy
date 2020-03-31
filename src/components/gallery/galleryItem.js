@@ -62,13 +62,7 @@ export const GalleryItem = ({ item }) => {
   };
 
   return (
-    <li
-      // onClick={() => {
-      //   history.push(`/${item._id}`);
-      // }}
-      className='border-0 item p-0  location-listing'
-      type='button'
-    >
+    <li className='border-0 item p-0  location-listing' type='button'>
       <div className='custom-rounded-2rem location-image h-100'>
         <img
           className={`h-100 w-100 ${item.filter}`}
@@ -121,6 +115,10 @@ export const GalleryItem = ({ item }) => {
             </span>
           </div>
           <div
+            onClick={() => {
+              console.log('clicked');
+              history.push(`/${item._id}`);
+            }}
             class='btn-sm btn-outline-light rounded-circle'
             type='button'
             data-toggle='tooltip'

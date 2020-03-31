@@ -69,6 +69,28 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const updateComment = comment => {
+    dispatch({
+      type: 'UPDATE_COMMENT',
+      payload: comment
+    });
+  };
+
+  const updateReply = (reply, commentId) => {
+    dispatch({
+      type: 'UPDATE_REPLY',
+      payload: reply,
+      commentId
+    });
+  };
+
+  const removeComment = commentId => {
+    dispatch({
+      type: 'REMOVE_COMMENT',
+      payload: commentId
+    });
+  };
+
   const removeTag = payload => {
     dispatch({
       type: 'REMOVE_TAG',
@@ -87,7 +109,10 @@ export const GlobalProvider = ({ children }) => {
         addTag,
         removeTag,
         setFilter,
-        setActive
+        setActive,
+        updateComment,
+        updateReply,
+        removeComment
       }}
     >
       {children}

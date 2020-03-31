@@ -50,6 +50,25 @@ export default (state, action) => {
       state.activePost = action.payload;
       return;
 
+    case 'UPDATE_COMMENT':
+      state.activePost.comments.push(action.payload);
+      return;
+    case 'UPDATE_REPLY':
+      state.activePost.comments.map(comment =>
+        comment._id === action.commentId
+          ? comment.replies.push(action.payload)
+          : ''
+      );
+      return;
+
+    case 'REMOVE_COMMENT':
+      state.activePost.comments.map((comment, index) =>
+        comment._id === action.payload
+          ? state.activePost.comments.splice(index, 1)
+          : ''
+      );
+      return;
+
     default:
       return state;
   }
