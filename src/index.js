@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { GlobalProvider } from './context/GlobalContext';
+import axios from 'axios';
+import 'react-notifications/lib/notifications.css';
+const baseURL =
+  window.location.hostname === 'localhost'
+    ? 'https://ivenemesis-api.herokuapp.com'
+    : 'https://ivenemesis-api.herokuapp.com';
+
+if (process.env.API) axios.defaults.baseURL = process.env.API;
+else axios.defaults.baseURL = baseURL;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <GlobalProvider>
+    <Router>
+      <App />
+    </Router>
+  </GlobalProvider>,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

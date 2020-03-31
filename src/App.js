@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Appbar } from './components/navbar/navbar';
+import { Home } from './views/home';
+import { Switch, Route } from 'react-router-dom';
+import { SinglePost } from './views/singlePost';
+import { Footer } from './components/footer/footer';
+import { Signup } from './views/signup';
+import { SignIn } from './views/signin';
+import { useIsLoggedIn } from './components/hooks/useIsLoggedIn';
 
 function App() {
+  useIsLoggedIn();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Appbar />
+      <Switch>
+        <Route exact path='/signup' component={Signup} />
+        <Route exact path='/' component={SignIn} />
+        <Route exact path='/feed' component={Home} />
+        <Route exact path='/:id' component={SinglePost} />
+      </Switch>
+      {/* <Footer /> */}
+    </>
   );
 }
 
