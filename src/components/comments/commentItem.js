@@ -98,7 +98,7 @@ export const CommentItem = ({ comment }) => {
         </div>
       </div>
       {reply ? (
-        <div className='col-md-12 mt-2'>
+        <div className='col-md-12 mt-2 mb-2'>
           <div className='row'>
             <div className='col-lg-1 col-md-2'></div>
             <div className='col-md-10 col-xl-8 p-0'>
@@ -106,7 +106,7 @@ export const CommentItem = ({ comment }) => {
                 <div className=' d-flex align-items-center p-0 mr-2 ml-2'>
                   <div className='reply-img'>
                     <img
-                      className='h-100 w-100'
+                      className='h-100 w-100 border-circle'
                       src={imageUrl || defaultImage}
                       alt=''
                     />
@@ -118,6 +118,7 @@ export const CommentItem = ({ comment }) => {
                       type='text'
                       placeholder='Enter A Reply...'
                       name='text'
+                      className='bg-white'
                       innerRef={register({ required: true })}
                     />
                     {errors.text && <span>Please Enter A Reply..</span>}
