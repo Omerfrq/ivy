@@ -8,7 +8,7 @@ export const ReplyItem = ({ reply }) => {
   const { createdAt, text, userId } = reply;
   const { imageUrl, name } = userId;
   return (
-    <div className='row mt-3 mb-2 border-left-custom border-dark  bg-muted'>
+    <div className='row mt-3 mb-2 border-left-custom border-dark'>
       <div className=' d-flex align-items-start p-0 mb-1 w-100'>
         <div className='reply-img mr-2 ml-1'>
           <img

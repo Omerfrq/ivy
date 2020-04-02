@@ -3,9 +3,19 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { GlobalContext } from '../../context/GlobalContext';
 import { TopImageCommentList } from './topImageCommentList';
+import { ASSETS } from '../../config/assetConfig';
 export const GalleryItem = ({ item }) => {
   const history = useHistory();
-  const { upvoteCount, topComments, downvoteCount, userVoteStatus, _id } = item;
+  const {
+    upvoteCount,
+    title,
+    topComments,
+    downvoteCount,
+    userVoteStatus,
+    _id,
+    postBy
+  } = item;
+
   const [upvote, setUpVote] = useState(userVoteStatus.upvote || false);
   const [UpvoteCount, setUpVoteCount] = useState(upvoteCount);
   const [downvote, setDownVote] = useState(userVoteStatus.downvote || false);
@@ -63,33 +73,43 @@ export const GalleryItem = ({ item }) => {
   };
 
   return (
-    <li className='border-0 item p-0  location-listing' type='button'>
-      <div className='custom-rounded-2rem location-image h-100'>
+    <li className='border-0  item p-0  location-listing' type='button'>
+      <div className=' shadow-sm location-image mb-5 h-100'>
         <img
-          className={`h-100 w-100 ${item.filter}`}
+          className={`h-100 w-100 custom-radius  ${item.filter}`}
           src={item.mediaUrl}
           alt='pic'
         />
       </div>
       <div class='location-title row mx-0'>
-        <div class='col-md-11 mx-auto w-100 h-75 overflow-auto custom-scroll-none'>
+        <div
+          onClick={() => {
+            history.push(`/${item._id}`);
+          }}
+          class='col-md-11 mx-auto w-100 h-100 overflow-hidden'
+        >
           <div class='text-right'>
             <div>
               <img
                 class='custom-user-pic-small rounded-circle'
-                src={item.mediaUrl}
+                src={postBy?.imageUrl || ASSETS.defaultImg}
                 alt='user'
               />
             </div>
             <div class='h6 mb-1'>
-              <span class='small font-weight-bold text-capitalize'>Jenna</span>
+              <span class='small font-weight-bold text-capitalize'>
+                {title}
+              </span>
             </div>
           </div>
           <TopImageCommentList comments={topComments} />
         </div>
-        <div class='align-items-center d-flex justify-content-around w-100 border-top py-2 custom-font-size-small'>
-          <div class='d-flex align-items-center'>
+        <div class='align-items-center p-1 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
+          <div class='d-flex align-items-center text-dark'>
             <div
+              onClick={() => {
+                vote('upvote');
+              }}
               class={`btn-sm btn-outline-light rounded-circle ${
                 upvote ? 'bg-white text-dark' : ''
               }`}
@@ -98,19 +118,17 @@ export const GalleryItem = ({ item }) => {
               data-placement='top'
               data-original-title='I like this'
             >
-              <i
-                onClick={() => {
-                  vote('upvote');
-                }}
-                class='far fa-thumbs-up'
-              ></i>
+              <i class='far fa-thumbs-up '></i>
             </div>
             <span className='badge badge-pill badge-light ml-1'>
               {UpvoteCount}
             </span>
           </div>
-          <div class='d-flex align-items-center'>
+          <div class='d-flex align-items-center text-light'>
             <div
+              onClick={() => {
+                downVote('downvote');
+              }}
               class={`btn-sm btn-outline-light rounded-circle ${
                 downvote ? 'bg-white text-dark' : ''
               }`}
@@ -119,12 +137,7 @@ export const GalleryItem = ({ item }) => {
               data-placement='top'
               data-original-title='I dislike this'
             >
-              <i
-                onClick={() => {
-                  downVote('downvote');
-                }}
-                class='far fa-thumbs-down'
-              ></i>
+              <i class='far fa-thumbs-down '></i>
             </div>
             <span class='badge badge-pill badge-light ml-1'>
               {DownvoteCount}

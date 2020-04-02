@@ -42,8 +42,6 @@ export const UploadImage = ({ setModal }) => {
       formdata.append('tags', tags);
       formdata.append('filter', activeFilter);
 
-      console.log(tags);
-
       axios
         .post('/post/add', formdata)
         .then(res => {
@@ -72,9 +70,7 @@ export const UploadImage = ({ setModal }) => {
       <NotificationContainer />
       <div className='col col-md-5 custom-shadow-right py-5'>
         <div>
-          <Label className='pb-2 text-capitalize'>
-            Give your image a title
-          </Label>
+          <Label className='pb-2 text-capitalize'>Model Name</Label>
           <FormGroup>
             <Input
               name='title'

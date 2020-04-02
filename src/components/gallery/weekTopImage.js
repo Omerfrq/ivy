@@ -159,7 +159,7 @@ export const WeekTopImage = ({ topImage }) => {
 
       <div class='position-relative location-image h-100vh'>
         <img
-          class={`custom-rounded-2rem hero-background h-100 ${filter}`}
+          class={`custom-rounded-1rem hero-background h-100 ${filter}`}
           src={mediaUrl}
           alt='Pic'
         />

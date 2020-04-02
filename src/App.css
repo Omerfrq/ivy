@@ -14,6 +14,10 @@ body {
   background-position: 50%;
 }
 
+.custom-feed-shadow {
+  filter: drop-shadow(10 12px 12px rgba(0, 0, 0, 0.3));
+}
+
 .border-left-custom {
   border-left: 2px solid transparent;
 }
@@ -416,6 +420,20 @@ textarea:focus {
   transition: filter 0.3s ease-in;
 }
 
+.custom-radius {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+}
+
+.bg-muted {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.custom-radius-bottom {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
 .location-title {
   font-size: 1.5em;
   font-weight: bold;
@@ -428,7 +446,8 @@ textarea:focus {
   left: 0;
   opacity: 0;
   transition: opacity 0.5s;
-  border-radius: 2rem !important;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
   background: rgba(0, 0, 0, 0.4);
   color: white;
 
@@ -445,8 +464,8 @@ textarea:focus {
   text-decoration: none;
 }
 .custom-user-pic-small {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 }
 
 /* .location-listing:hover .location-image img {

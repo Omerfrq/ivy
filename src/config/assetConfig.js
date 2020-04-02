@@ -1,3 +1,3 @@
 export const ASSETS = {
-  defaultImg: 'https://obbimages.s3.amazonaws.com/joshua-stannard.jpg'
+  defaultImg: 'https://www.flaticon.com/premium-icon/icons/svg/1993/1993420.svg'
 };
