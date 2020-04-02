@@ -5,11 +5,12 @@ import { Form, Input } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { GlobalContext } from '../../context/GlobalContext';
 import { ReplyItem } from './replyItem';
+import { getUserID } from '../../utils/helper';
 
 const defaultImage =
   'https://www.flaticon.com/premium-icon/icons/svg/1993/1993420.svg';
 export const CommentItem = ({ comment }) => {
-  const { imageUrl, name } = comment.userId;
+  const { imageUrl, name, _id } = comment.userId;
   const { text, createdAt, replies } = comment;
   const [reply, setReply] = useState(false);
   const { register, errors, handleSubmit, reset } = useForm();
@@ -64,14 +65,19 @@ export const CommentItem = ({ comment }) => {
                 class='fas fa-reply cursor-pointer text-info small mr-2'
               ></i>
             </div>
-            <div>
-              <i
-                onClick={() => {
-                  remove(comment._id);
-                }}
-                class='fas fa-trash-alt small text-danger cursor-pointer'
-              ></i>
-            </div>
+            {getUserID(state) === _id ? (
+              <div>
+                <i
+                  onClick={() => {
+                    remove(comment._id);
+                  }}
+                  class='fas fa-trash-alt small text-danger cursor-pointer'
+                ></i>
+              </div>
+            ) : (
+              ''
+            )}
+
             <div class='small ml-2 bg-dark text-white  px-2'>
               {date.fromNow(createdAt)}
             </div>
