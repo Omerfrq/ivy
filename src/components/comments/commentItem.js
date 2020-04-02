@@ -43,15 +43,15 @@ export const CommentItem = ({ comment }) => {
   };
 
   return (
-    <div class='flex-column border-bottom flex-lg-row pt-2 row text-center text-lg-left custom-border-y'>
+    <div class='flex-column mb-4 shadow-sm border-collapse flex-lg-row col-xl-11 col-sm-12 pt-2 row text-center text-lg-left '>
       <div class='col col-lg-1 mb-3 mb-lg-0'>
         <img
-          class='custom-user-pic rounded-circle shadow-sm'
+          class='custom-user-pic-small rounded-circle shadow-sm'
           src={imageUrl || defaultImage}
           alt='user'
         />
       </div>
-      <div class='col col-lg-8 col-xl-8 mb-3 mb-lg-0 p-0'>
+      <div class='col col-lg-8 col-xl-10 mb-3 mb-lg-0 p-0'>
         <div class='d-flex justify-content-between align-items-end h6 mb-0 font-weight-normal text-muted text-capitalize'>
           <span className='text-capitalize font-weight-bold text-dark'>
             {name}
@@ -78,7 +78,7 @@ export const CommentItem = ({ comment }) => {
               ''
             )}
 
-            <div class='small ml-2 bg-dark text-white  px-2'>
+            <div class='small ml-2 bg-dark text-white py-1 px-2'>
               {date.fromNow(createdAt)}
             </div>
           </div>
@@ -89,15 +89,9 @@ export const CommentItem = ({ comment }) => {
         <div class='col-md-12'>
           <div class='row'>
             <div className='col-md-1 col-lg-1'></div>
-            <div class='col-md-9 col-xl-8 p-0'>
+            <div class='col-md-9 col-xl-10 p-0'>
               {replies.map(reply => (
-                <ReplyItem
-                  key={reply._id}
-                  img={reply.userId.imageUrl}
-                  name={reply.userId.name}
-                  time={reply.createdAt}
-                  text={reply.text}
-                />
+                <ReplyItem reply={reply} />
               ))}
             </div>
           </div>

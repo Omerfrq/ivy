@@ -30,21 +30,15 @@ export const AddComment = ({ resourceId }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} class='col col-lg-10 col-xl-9 py-5'>
-      <div class='pt-4'>
-        <textarea
+    <Form onSubmit={handleSubmit(onSubmit)} class='col col-lg-8 col-xl-8'>
+      <div class='form-group'>
+        <input
           name='text'
           ref={register({ required: true })}
-          class='w-100 custom-rounded-1rem bg-white pt-4 pl-4'
-          rows='10'
+          class=' form-control'
           placeholder='Comment Here...'
-        ></textarea>
+        />
         {errors.text && <span>Please Enter the Comment.</span>}
-      </div>
-      <div class='text-right'>
-        <button class='btn btn-success mb-2' type='submit'>
-          Comment
-        </button>
       </div>
     </Form>
   );

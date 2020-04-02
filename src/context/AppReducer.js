@@ -69,6 +69,12 @@ export default (state, action) => {
       );
       return;
 
+    case 'LOGOUT_GUEST':
+      localStorage.removeItem('guest');
+      state.type = null;
+      state.user = null;
+      return;
+
     default:
       return state;
   }

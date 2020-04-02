@@ -6,8 +6,8 @@ export const useRedirect = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (state.isAuthenticated) {
-      history.push('/feed');
+    if (state.isAuthenticated && state.type !== 'guest') {
+      history.push('/');
     } else {
       return;
     }

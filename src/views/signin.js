@@ -8,7 +8,7 @@ export const SignIn = () => {
     <div className='d-flex height-100vh-all flex-column-sm'>
       <div className='col-md-6 d-flex justify-content-center align-items-center p-0'>
         <img
-          className='h-100 w-100'
+          className=' w-100'
           src='https://i.imgur.com/c7vzq9G.png'
           alt='signin'
         />

@@ -26,23 +26,24 @@ export const SinglePost = () => {
   }, [state.isAuthenticated]);
   return (
     <>
-      <div class='container-fluid px-md-5'>
+      <div class='container-fluid px-md-2'>
         {isLoading ? (
           'loading'
         ) : (
-          <section class='bg-white mt-5 pt-5 px-3 px-md-5'>
-            <header class='pt-4 mx-auto'>
-              <div class='h2 text-uppercase'>{activePost.title}</div>
-              <div className='h-70vh'>
-                <img
-                  class={`h-100  w-100 object-contain custom-rounded-2rem ${activePost.filter}`}
-                  src={activePost.mediaUrl}
-                  alt='Pic'
-                />
-              </div>
-            </header>
-            <CommentList comments={activePost.comments} />
-            <AddComment resourceId={activePost._id} />
+          <section class='bg-white mt-5 pt-5 px-3 px-md-5 '>
+            {/* <div class='h2 text-uppercase'>{activePost.title}</div> */}
+
+            <div className='h-70vh'>
+              <img
+                class={`h-100 w-100 object-contain custom-rounded-1rem ${activePost.filter}`}
+                src={activePost.mediaUrl}
+                alt='Pic'
+              />
+            </div>
+            <div className='col-md-12'>
+              <AddComment resourceId={activePost._id} />
+              <CommentList comments={activePost.comments} />
+            </div>
           </section>
         )}
       </div>

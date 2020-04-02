@@ -14,9 +14,9 @@ function App() {
     <>
       <Appbar />
       <Switch>
-        <Route exact path='/signup' component={Signup} />
-        <Route exact path='/' component={SignIn} />
-        <Route exact path='/feed' component={Home} />
+        <Route exact path='/sign-up' component={Signup} />
+        <Route exact path='/sign-in' component={SignIn} />
+        <Route exact path='/' component={Home} />
         <Route exact path='/:id' component={SinglePost} />
       </Switch>
       {/* <Footer /> */}

@@ -14,33 +14,43 @@ import {
 } from 'reactstrap';
 import { UploadImage } from '../form/uploadImage';
 import { GlobalContext } from '../../context/GlobalContext';
-import { useHistory, Link, useLocation } from 'react-router-dom';
+import {
+  useHistory,
+  Link,
+  useLocation,
+  NavLink as RRNavLink
+} from 'react-router-dom';
 
 export const Appbar = () => {
   const [modal, setModal] = useState(false);
-  const { state, logout } = useContext(GlobalContext);
+  const { state, logout, guestLogout } = useContext(GlobalContext);
   const { pathname } = useLocation();
   const history = useHistory();
 
   const toggle = () => setModal(!modal);
 
-  const showAppbar = pathname === '/' || pathname === '/signup' ? false : true;
+  // const showAppbar =
+  //   pathname === '/sign-in' || pathname === '/signup' ? false : true;
 
   const Logout = () => {
     logout();
+    history.push('/sign-up');
+  };
+
+  const LogoutGuest = () => {
+    guestLogout();
     history.push('/');
   };
 
   return (
     <>
-      {showAppbar ? (
-        <Navbar color='light' light expand='md' fixed='top'>
-          <NavbarBrand to='/' tag={Link}>
-            IVY Nemesis
-          </NavbarBrand>
+      <Navbar color='light' light expand='md' fixed='top'>
+        <NavbarBrand to='/' tag={Link}>
+          IVY Nemesis
+        </NavbarBrand>
 
-          <Nav className='ml-auto' navbar>
-            {/* <NavItem className='d-flex align-items-center'>
+        <Nav className='ml-auto' navbar>
+          {/* <NavItem className='d-flex align-items-center'>
               <Form>
                 <Input
                   type='search'
@@ -52,51 +62,61 @@ export const Appbar = () => {
               <i className='fas fa-search ml-2'></i>
             </NavItem> */}
 
-            <NavItem className='cursor-pointer'>
-              <NavLink onClick={toggle}>New Post</NavLink>
-              <Modal
-                className='modal-dialog custom-modal-dialog modal-dialog-centered m-0 m-md-auto'
-                isOpen={modal}
-                toggle={toggle}
-              >
-                <ModalBody className='py-0'>
-                  <UploadImage setModal={setModal} />
-                </ModalBody>
-              </Modal>
-            </NavItem>
+          <NavItem className='cursor-pointer'>
+            <NavLink onClick={toggle}>New Post</NavLink>
+            <Modal
+              className='modal-dialog custom-modal-dialog modal-dialog-centered m-0 m-md-auto'
+              isOpen={modal}
+              toggle={toggle}
+            >
+              <ModalBody className='py-0'>
+                <UploadImage setModal={setModal} />
+              </ModalBody>
+            </Modal>
+          </NavItem>
 
-            {state.isAuthenticated ? (
-              <>
-                {state.type === 'guest' ? (
+          {state.isAuthenticated ? (
+            <>
+              {state.type === 'guest' ? (
+                <>
                   <NavItem className='cursor-pointer'>
-                    <NavLink>Logged In As Model</NavLink>
+                    <NavLink exact={true} to='/sign-in' tag={RRNavLink}>
+                      Signin
+                    </NavLink>
                   </NavItem>
-                ) : (
-                  <>
-                    <UncontrolledDropdown nav inNavbar>
-                      <DropdownToggle nav>
-                        <img
-                          className='img-fluid rounded-circle
+                  <NavItem className='cursor-pointer'>
+                    <NavLink exact={true} to='/sign-up' tag={RRNavLink}>
+                      Signup
+                    </NavLink>
+                  </NavItem>
+                  <NavItem className='cursor-pointer'>
+                    <NavLink>Logged In As Guest</NavLink>
+                  </NavItem>
+                </>
+              ) : (
+                <>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav>
+                      <img
+                        className='img-fluid rounded-circle
                          custom-nav-user-pic custom-shadow-box'
-                          src={state.user?.imageUrl}
-                          alt={state.user?.name}
-                        />
-                      </DropdownToggle>
-                      <DropdownMenu right>
-                        <DropdownItem onClick={Logout}>Logout</DropdownItem>
-                      </DropdownMenu>
-                    </UncontrolledDropdown>
-                  </>
-                )}
-              </>
-            ) : (
-              ''
-            )}
-          </Nav>
-        </Navbar>
-      ) : (
-        ''
-      )}
+                        src={state.user?.imageUrl}
+                        alt={state.user?.name}
+                      />
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem onClick={Logout}>Logout</DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </>
+              )}
+            </>
+          ) : (
+            ''
+          )}
+        </Nav>
+      </Navbar>
+      )
     </>
   );
 };

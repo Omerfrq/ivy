@@ -91,6 +91,12 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const guestLogout = () => {
+    dispatch({
+      type: 'LOGOUT_GUEST'
+    });
+  };
+
   const removeTag = payload => {
     dispatch({
       type: 'REMOVE_TAG',
@@ -112,7 +118,8 @@ export const GlobalProvider = ({ children }) => {
         setActive,
         updateComment,
         updateReply,
-        removeComment
+        removeComment,
+        guestLogout
       }}
     >
       {children}
