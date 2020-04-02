@@ -4,7 +4,6 @@ import { Appbar } from './components/navbar/navbar';
 import { Home } from './views/home';
 import { Switch, Route } from 'react-router-dom';
 import { SinglePost } from './views/singlePost';
-import { Footer } from './components/footer/footer';
 import { Signup } from './views/signup';
 import { SignIn } from './views/signin';
 import { useIsLoggedIn } from './components/hooks/useIsLoggedIn';

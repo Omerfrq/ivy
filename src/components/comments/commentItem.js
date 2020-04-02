@@ -7,7 +7,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 import { ReplyItem } from './replyItem';
 
 const defaultImage =
-  'https://images.macrumors.com/t/XjzsIpBxeGphVqiWDqCzjDgY4Ck=/800x0/article-new/2019/04/guest-user-250x250.jpg';
+  'https://www.flaticon.com/premium-icon/icons/svg/1993/1993420.svg';
 export const CommentItem = ({ comment }) => {
   const { imageUrl, name } = comment.userId;
   const { text, createdAt, replies } = comment;
@@ -42,42 +42,48 @@ export const CommentItem = ({ comment }) => {
   };
 
   return (
-    <div class='flex-column flex-lg-row py-5 row text-center text-lg-left custom-border-y'>
+    <div class='flex-column border-bottom flex-lg-row pt-2 row text-center text-lg-left custom-border-y'>
       <div class='col col-lg-1 mb-3 mb-lg-0'>
         <img
-          class='custom-user-pic rounded-circle custom-shadow-box'
+          class='custom-user-pic rounded-circle shadow-sm'
           src={imageUrl || defaultImage}
           alt='user'
         />
       </div>
-      <div class='col col-lg-8 col-xl-7 mb-3 mb-lg-0'>
-        <div class='d-flex justify-content-between h4 font-weight-normal text-muted text-capitalize'>
-          <span>{name}</span>
-          <div
-            onClick={() => {
-              remove(comment._id);
-            }}
-            class='badge badge-danger border-0 btn cursor-pointer font-weight-bold mr-2'
-          >
-            Delete
-          </div>
-          <div
-            onClick={() => {
-              setReply(true);
-            }}
-            class='badge badge-danger border-0 btn cursor-pointer font-weight-bold mr-2'
-          >
-            Reply
+      <div class='col col-lg-8 col-xl-8 mb-3 mb-lg-0 p-0'>
+        <div class='d-flex justify-content-between align-items-end h6 mb-0 font-weight-normal text-muted text-capitalize'>
+          <span className='text-capitalize font-weight-bold text-dark'>
+            {name}
+          </span>
+          <div className='d-flex align-items-end'>
+            <div>
+              <i
+                onClick={() => {
+                  setReply(true);
+                }}
+                class='fas fa-reply cursor-pointer text-info small mr-2'
+              ></i>
+            </div>
+            <div>
+              <i
+                onClick={() => {
+                  remove(comment._id);
+                }}
+                class='fas fa-trash-alt small text-danger cursor-pointer'
+              ></i>
+            </div>
+            <div class='small ml-2 bg-dark text-white  px-2'>
+              {date.fromNow(createdAt)}
+            </div>
           </div>
         </div>
         <div class='text-justify '>{text}</div>
       </div>
-      <div class='h4 col col-xl-2 col-xl-3 '>{date.fromNow(createdAt)}</div>
       <div class='col-md-12 mt-2'>
         <div class='col-md-12'>
           <div class='row'>
-            <div className='col-md-1'></div>
-            <div class='col-md-9 p-0'>
+            <div className='col-md-1 col-lg-1'></div>
+            <div class='col-md-9 col-xl-8 p-0'>
               {replies.map(reply => (
                 <ReplyItem
                   key={reply._id}
@@ -94,8 +100,8 @@ export const CommentItem = ({ comment }) => {
       {reply ? (
         <div className='col-md-12 mt-2'>
           <div className='row'>
-            <div className=' col-md-2'></div>
-            <div className='col p-0'>
+            <div className='col-lg-1 col-md-2'></div>
+            <div className='col-md-10 col-xl-8 p-0'>
               <div className='row'>
                 <div className=' d-flex align-items-center p-0 mr-2 ml-2'>
                   <div className='reply-img'>
@@ -106,7 +112,7 @@ export const CommentItem = ({ comment }) => {
                     />
                   </div>
                 </div>
-                <div className='col-md-7'>
+                <div className='col p-0'>
                   <Form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                       type='text'

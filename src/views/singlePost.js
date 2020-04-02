@@ -17,6 +17,7 @@ export const SinglePost = () => {
         .get(`/post/get/${params.id}/${id}`)
         .then(res => {
           setActive(res.data.article);
+          console.log(res.data.article);
           setIsLoading(false);
         })
         .catch(err => console.log(err.response));
@@ -31,9 +32,9 @@ export const SinglePost = () => {
         ) : (
           <section class='bg-white mt-5 pt-5 px-3 px-md-5'>
             <header class='pt-4 mx-auto'>
-              <div class='h2 text-uppercase'>Single Image</div>
+              <div class='h2 text-uppercase'>{activePost.title}</div>
               <img
-                class={`img-fluid ${activePost.filter}`}
+                class={`h-70vh w-100 custom-rounded-2rem ${activePost.filter}`}
                 src={activePost.mediaUrl}
                 alt='Pic'
               />

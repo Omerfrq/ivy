@@ -9,8 +9,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Form,
-  Input,
   Modal,
   ModalBody
 } from 'reactstrap';
@@ -22,7 +20,6 @@ export const Appbar = () => {
   const [modal, setModal] = useState(false);
   const { state, logout } = useContext(GlobalContext);
   const { pathname } = useLocation();
-  console.log(pathname);
   const history = useHistory();
 
   const toggle = () => setModal(!modal);

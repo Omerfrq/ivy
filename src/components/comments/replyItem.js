@@ -2,11 +2,11 @@ import React from 'react';
 import date from '../../utils/date';
 
 const defaultImage =
-  'https://images.macrumors.com/t/XjzsIpBxeGphVqiWDqCzjDgY4Ck=/800x0/article-new/2019/04/guest-user-250x250.jpg';
+  'https://www.flaticon.com/premium-icon/icons/svg/1993/1993420.svg';
 
 export const ReplyItem = ({ img, text, name, time }) => {
   return (
-    <div className='row border-bottom mt-3'>
+    <div className='row mt-3'>
       <div className=' d-flex align-items-start p-0 mb-1 w-100'>
         <div className='reply-img mr-2'>
           <img

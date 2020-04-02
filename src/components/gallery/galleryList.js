@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { GalleryItem } from './galleryItem';
 import axios from 'axios';
 import { GlobalContext } from '../../context/GlobalContext';
+import { getUserID } from '../../utils/helper';
 
 export const GalleryList = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ export const GalleryList = () => {
   useEffect(() => {
     if (state.isAuthenticated) {
       setLoading(true);
-      const id = state.type === 'guest' ? state.guest.id : state.user._id;
+      const id = getUserID(state);
       axios
         .get(`/post/get/all/${id}/mostLiked`)
         .then(res => {
@@ -20,7 +21,7 @@ export const GalleryList = () => {
         })
         .catch(err => console.log(err.response));
     }
-  }, [state.isAuthenticated]);
+  }, [state]);
   return (
     <>
       <ul className='photo-grid masonry mt-5 px-0 pb-5'>
@@ -32,7 +33,7 @@ export const GalleryList = () => {
             {posts.length > 0 ? (
               <>
                 {posts.map(item => (
-                  <GalleryItem item={item} />
+                  <GalleryItem key={item._id} item={item} />
                 ))}
               </>
             ) : (

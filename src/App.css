@@ -1,13 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 * {
   padding: 0;
   margin: 0;
 }
 
+body {
+  font-family: 'Quicksand', sans-serif;
+}
 .h-100vh {
   height: 70vh;
 
   background-size: cover;
   background-position: 50%;
+}
+
+.h-70vh {
+  height: 70vh;
+  object-fit: cover;
 }
 
 /*cssgram styles*/
@@ -413,17 +422,24 @@ textarea:focus {
   opacity: 0;
   transition: opacity 0.5s;
   border-radius: 2rem !important;
-  background: rgba(90, 0, 10, 0.4);
+  background: rgba(0, 0, 0, 0.4);
   color: white;
 
   /* position the text in tâ€™ middle*/
   display: flex;
   align-items: flex-end;
 }
+.flex-0 {
+  flex: 0;
+}
 
 .location-listing:hover .location-title {
   opacity: 1;
   text-decoration: none;
+}
+.custom-user-pic-small {
+  width: 40px;
+  height: 40px;
 }
 
 /* .location-listing:hover .location-image img {
@@ -485,6 +501,10 @@ textarea:focus {
 
   .custom-modal-dialog {
     max-width: 100%;
+  }
+
+  .location-listing {
+    position: relative;
   }
 
   .custom-60vh {

@@ -42,6 +42,8 @@ export const UploadImage = ({ setModal }) => {
       formdata.append('tags', tags);
       formdata.append('filter', activeFilter);
 
+      console.log(tags);
+
       axios
         .post('/post/add', formdata)
         .then(res => {

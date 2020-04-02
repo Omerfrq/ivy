@@ -11,7 +11,7 @@ import { useGuestSignup } from '../hooks/useGuest';
 
 export const SigninForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { register, errors, handleSubmit, reset } = useForm();
+  const { register, errors, handleSubmit } = useForm();
   const { login } = useContext(GlobalContext);
 
   const { loginGuest } = useGuestSignup();

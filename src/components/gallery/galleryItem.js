@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { GlobalContext } from '../../context/GlobalContext';
+import { TopImageCommentList } from './topImageCommentList';
 export const GalleryItem = ({ item }) => {
   const history = useHistory();
-  const { upvoteCount, downvoteCount, userVoteStatus, _id } = item;
+  const { upvoteCount, topComments, downvoteCount, userVoteStatus, _id } = item;
   const [upvote, setUpVote] = useState(userVoteStatus.upvote || false);
   const [UpvoteCount, setUpVoteCount] = useState(upvoteCount);
   const [downvote, setDownVote] = useState(userVoteStatus.downvote || false);
@@ -70,7 +71,22 @@ export const GalleryItem = ({ item }) => {
           alt='pic'
         />
       </div>
-      <div class='location-title'>
+      <div class='location-title row mx-0'>
+        <div class='col-md-11 mx-auto w-100 h-75 overflow-auto custom-scroll-none'>
+          <div class='text-right'>
+            <div>
+              <img
+                class='custom-user-pic-small rounded-circle'
+                src={item.mediaUrl}
+                alt='user'
+              />
+            </div>
+            <div class='h6 mb-1'>
+              <span class='small font-weight-bold text-capitalize'>Jenna</span>
+            </div>
+          </div>
+          <TopImageCommentList comments={topComments} />
+        </div>
         <div class='align-items-center d-flex justify-content-around w-100 border-top py-2 custom-font-size-small'>
           <div class='d-flex align-items-center'>
             <div
@@ -116,14 +132,14 @@ export const GalleryItem = ({ item }) => {
           </div>
           <div
             onClick={() => {
-              console.log('clicked');
               history.push(`/${item._id}`);
             }}
             class='btn-sm btn-outline-light rounded-circle'
             type='button'
             data-toggle='tooltip'
             data-placement='top'
-            data-original-title='Leave a comment'
+            title=''
+            data-original-title='Comment Here'
           >
             <i class='far fa-comment' aria-hidden='true'></i>
           </div>
