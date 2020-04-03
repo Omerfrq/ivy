@@ -20,7 +20,7 @@ const getReactionsType = type => {
   }
 };
 
-export const Reaction = ({ type, count, onClick }) => {
+export const Reaction = ({ type, count, onClickHandler }) => {
   const { title, favIcon } = getReactionsType(type);
 
   return (
@@ -33,7 +33,7 @@ export const Reaction = ({ type, count, onClick }) => {
       >
         <i
           onClick={() => {
-            console.log('here');
+            onClickHandler();
           }}
           className={favIcon}
         ></i>

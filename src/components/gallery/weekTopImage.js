@@ -1,13 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { TopImageCommentList } from './topImageCommentList';
 import { GlobalContext } from '../../context/GlobalContext';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { getUserID } from '../../utils/helper';
+import { useImmerReducer } from 'use-immer';
+import { voteReducer } from '../reducer/voteReducer';
+
 export const WeekTopImage = ({ topImage }) => {
   const { state } = useContext(GlobalContext);
   const {
-    upvoteCount,
     topComments,
     downvoteCount,
     userVoteStatus,
@@ -17,11 +19,18 @@ export const WeekTopImage = ({ topImage }) => {
     filter
   } = topImage;
 
+  const initialState = {
+    upvote: userVoteStatus.upvote,
+    UpvoteCount: topImage.upvoteCount,
+    downvote: userVoteStatus.downvote,
+    DownvoteCount: downvoteCount
+  };
+
+  const [localState, dispatch] = useImmerReducer(voteReducer, initialState);
+
+  const { upvote, UpvoteCount, downvote, DownvoteCount } = localState;
+
   const history = useHistory();
-  const [upvote, setUpVote] = useState(userVoteStatus.upvote || false);
-  const [UpvoteCount, setUpVoteCount] = useState(upvoteCount);
-  const [downvote, setDownVote] = useState(userVoteStatus.downvote || false);
-  const [DownvoteCount, setDownVoteCount] = useState(downvoteCount);
 
   const userId = getUserID(state);
 
@@ -42,34 +51,12 @@ export const WeekTopImage = ({ topImage }) => {
   };
 
   const vote = type => {
-    setUpVote(!upvote);
-    if (upvote) {
-      setUpVoteCount(UpvoteCount - 1);
-    } else if (!upvote && downvote) {
-      setDownVote(false);
-      setDownVoteCount(DownvoteCount - 1);
-      setUpVoteCount(UpvoteCount + 1);
-    } else if (!upvote) {
-      setUpVoteCount(UpvoteCount + 1);
-    }
+    dispatch({ type: 'upvote' });
     reaction(type);
   };
 
   const downVote = type => {
-    setDownVote(!downvote);
-    downvote
-      ? setDownVoteCount(DownvoteCount - 1)
-      : setDownVoteCount(DownvoteCount + 1);
-
-    if (downvote) {
-      setDownVoteCount(DownvoteCount - 1);
-    } else if (upvote && !downvote) {
-      setUpVote(false);
-      setUpVoteCount(UpvoteCount - 1);
-      setDownVoteCount(DownvoteCount + 1);
-    } else if (!downvote) {
-      setDownVoteCount(DownvoteCount + 1);
-    }
+    dispatch({ type: 'downvote' });
     reaction(type);
   };
 
@@ -82,7 +69,7 @@ export const WeekTopImage = ({ topImage }) => {
               <img
                 className='custom-shadow-box custom-user-pic-small rounded-circle'
                 src={mediaUrl}
-                alt='user'
+                alt={title}
               />
             </div>
             <div className='h6 mb-1'>
