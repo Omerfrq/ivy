@@ -14,55 +14,34 @@ import {
 } from 'reactstrap';
 import { UploadImage } from '../form/uploadImage';
 import { GlobalContext } from '../../context/GlobalContext';
-import {
-  useHistory,
-  Link,
-  useLocation,
-  NavLink as RRNavLink
-} from 'react-router-dom';
+import { useHistory, Link, NavLink as RRNavLink } from 'react-router-dom';
+import { ASSETS } from '../../config/assetConfig';
 
 export const Appbar = () => {
   const [modal, setModal] = useState(false);
-  const { state, logout, guestLogout } = useContext(GlobalContext);
-  const { pathname } = useLocation();
+  const { state, logout } = useContext(GlobalContext);
   const history = useHistory();
-
   const toggle = () => setModal(!modal);
-
-  // const showAppbar =
-  //   pathname === '/sign-in' || pathname === '/signup' ? false : true;
-
   const Logout = () => {
     logout();
     history.push('/sign-up');
   };
 
-  const LogoutGuest = () => {
-    guestLogout();
-    history.push('/');
-  };
-
   return (
     <>
-      <Navbar color='light' light expand='md' fixed='top'>
+      <Navbar color='light' light expand='md' className='shadow-sm' fixed='top'>
         <NavbarBrand to='/' tag={Link}>
-          IVY Nemesis
+          <img
+            style={{
+              width: '90px'
+            }}
+            src={ASSETS.LOGO}
+            alt='logo'
+          />
         </NavbarBrand>
 
         <Nav className='ml-auto' navbar>
-          {/* <NavItem className='d-flex align-items-center'>
-              <Form>
-                <Input
-                  type='search'
-                  className='border-0 shadow-sm'
-                  placeholder='Search...'
-                  name='search'
-                />
-              </Form>
-              <i className='fas fa-search ml-2'></i>
-            </NavItem> */}
-
-          <NavItem className='cursor-pointer'>
+          <NavItem className='cursor-pointer sm-d-none'>
             <NavLink onClick={toggle}>New Post</NavLink>
             <Modal
               className='modal-dialog custom-modal-dialog modal-dialog-centered m-0 m-md-auto'
@@ -79,18 +58,25 @@ export const Appbar = () => {
             <>
               {state.type === 'guest' ? (
                 <>
-                  <NavItem className='cursor-pointer'>
+                  {/* <NavItem className='cursor-pointer'>
                     <NavLink exact={true} to='/sign-in' tag={RRNavLink}>
                       Signin
                     </NavLink>
-                  </NavItem>
-                  <NavItem className='cursor-pointer'>
+                  </NavItem> */}
+                  <NavItem className='cursor-pointer sm-d-none'>
                     <NavLink exact={true} to='/sign-up' tag={RRNavLink}>
                       Signup
                     </NavLink>
                   </NavItem>
                   <NavItem className='cursor-pointer'>
-                    <NavLink>Logged In As Guest</NavLink>
+                    <NavLink>
+                      Logged In As Guest{' '}
+                      <img
+                        className='custom-user-pic-small'
+                        src={ASSETS.defaultImg}
+                        alt='Guest'
+                      />
+                    </NavLink>
                   </NavItem>
                 </>
               ) : (
@@ -104,7 +90,7 @@ export const Appbar = () => {
                         alt={state.user?.name}
                       />
                     </DropdownToggle>
-                    <DropdownMenu right>
+                    <DropdownMenu>
                       <DropdownItem onClick={Logout}>Logout</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
@@ -116,7 +102,6 @@ export const Appbar = () => {
           )}
         </Nav>
       </Navbar>
-      )
     </>
   );
 };

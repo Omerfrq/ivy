@@ -24,7 +24,7 @@ export const GalleryList = () => {
   }, [state]);
   return (
     <>
-      <ul className='photo-grid masonry mt-5 px-0 pb-5'>
+      <ul className='photo-grid masonry mt-2 px-0 pb-5'>
         {isLoading ? (
           'loading'
         ) : (

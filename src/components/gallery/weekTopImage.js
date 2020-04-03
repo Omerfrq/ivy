@@ -73,19 +73,21 @@ export const WeekTopImage = ({ topImage }) => {
   };
 
   return (
-    <div class='location-listing'>
-      <div class='location-title  mx-0 row'>
-        <div class='align-items-center align-items-md-end custom-scroll-none d-flex flex-column h-75 justify-content-center justify-content-md-end mr-lg-5 mr-md-3 overflow-auto section-comment w-100'>
-          <div class='section-comment__user text-center'>
+    <div className='location-listing'>
+      <div className='location-title  mx-0 row'>
+        <div className='align-items-center align-items-md-end custom-scroll-none d-flex flex-column h-75 justify-content-center justify-content-md-end mr-lg-5 mr-md-3 overflow-auto section-comment w-100'>
+          <div className='section-comment__user text-center'>
             <div>
               <img
-                class='custom-shadow-box custom-user-pic-small rounded-circle'
+                className='custom-shadow-box custom-user-pic-small rounded-circle'
                 src={mediaUrl}
                 alt='user'
               />
             </div>
-            <div class='h6 mb-1'>
-              <span class='small font-weight-bold text-capitalize'>Jenna</span>
+            <div className='h6 mb-1'>
+              <span className='small font-weight-bold text-capitalize'>
+                Jenna
+              </span>
             </div>
           </div>
           <div className='col-md-3 p-0'>
@@ -93,10 +95,10 @@ export const WeekTopImage = ({ topImage }) => {
           </div>
         </div>
 
-        <div class='align-items-center border-top custom-font-size-small d-flex justify-content-around py-xl-2 w-100'>
-          <div class='align-items-center d-flex'>
+        <div className='align-items-center border-top custom-font-size-small d-flex justify-content-around py-xl-2 w-100'>
+          <div className='align-items-center d-flex'>
             <div
-              class={`btn-sm btn-outline-light rounded-circle ${
+              className={`btn-sm btn-outline-light rounded-circle ${
                 upvote ? 'bg-white text-dark' : ''
               }`}
               type='button'
@@ -109,15 +111,17 @@ export const WeekTopImage = ({ topImage }) => {
                 onClick={() => {
                   vote('upvote');
                 }}
-                class='far fa-thumbs-up'
+                className='far fa-thumbs-up'
                 aria-hidden='true'
               ></i>
             </div>
-            <span class='badge badge-pill badge-light ml-1'>{UpvoteCount}</span>
+            <span className='badge badge-pill badge-light ml-1'>
+              {UpvoteCount}
+            </span>
           </div>
-          <div class='align-items-center d-flex'>
+          <div className='align-items-center d-flex'>
             <div
-              class={`btn-sm btn-outline-light rounded-circle ${
+              className={`btn-sm btn-outline-light rounded-circle ${
                 downvote ? 'bg-white text-dark' : ''
               }`}
               type='button'
@@ -130,16 +134,16 @@ export const WeekTopImage = ({ topImage }) => {
                 onClick={() => {
                   downVote('downvote');
                 }}
-                class='far fa-thumbs-down'
+                className='far fa-thumbs-down'
                 aria-hidden='true'
               ></i>
             </div>
-            <span class='badge badge-pill badge-light ml-1'>
+            <span className='badge badge-pill badge-light ml-1'>
               {DownvoteCount}
             </span>
           </div>
           <div
-            class='btn-sm btn-outline-light rounded-circle'
+            className='btn-sm btn-outline-light rounded-circle'
             type='button'
             data-toggle='tooltip'
             data-placement='top'
@@ -150,16 +154,16 @@ export const WeekTopImage = ({ topImage }) => {
               onClick={() => {
                 history.push(`/${_id}`);
               }}
-              class='far fa-comment'
+              className='far fa-comment'
               aria-hidden='true'
             ></i>
           </div>
         </div>
       </div>
 
-      <div class='position-relative location-image h-100vh'>
+      <div className='position-relative location-image h-100vh'>
         <img
-          class={`custom-rounded-1rem hero-background h-100 ${filter}`}
+          className={`custom-rounded-1rem hero-background h-100 ${filter}`}
           src={mediaUrl}
           alt='Pic'
         />

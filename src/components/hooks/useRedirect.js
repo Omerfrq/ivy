@@ -11,5 +11,5 @@ export const useRedirect = () => {
     } else {
       return;
     }
-  }, [state.isAuthenticated, history]);
+  }, [state, history]);
 };

@@ -35,7 +35,7 @@ export const Placeholder = ({
             alt={placeholder}
             className={`${
               borderRadius === 'custom-rounded-1rem' ? '' : 'h-100'
-            } w-100 ${borderRadius} ${state.activeFilter}`}
+            }h-100 w-100 ${borderRadius} ${state.activeFilter}`}
           />
         ) : (
           <button className='btn badge-pill btn-secondary'>

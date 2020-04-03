@@ -6,10 +6,10 @@ import { ASSETS } from '../../config/assetConfig';
 export const TopImageComment = ({ comment }) => {
   const { userId, createdAt, text } = comment;
   return (
-    <div className='overflow-hidden'>
-      <div className='col-md-12 p-0 small'>
+    <div className='overflow-hidden sm-d-none'>
+      <div className='col-md-12 p-1 small shadow-sm border-left-custom border-white mb-2'>
         <div className='row'>
-          <div className='col-md-3 '>
+          <div className='col-md-3 p-0 d-flex justify-content-center'>
             <div className='custom-user-pic-small'>
               <img
                 src={userId?.imageUrl || ASSETS.defaultImg}
@@ -21,15 +21,15 @@ export const TopImageComment = ({ comment }) => {
 
           <div className='col-md-9 p-0'>
             <div className=' d-flex flex-column '>
-              <div className='font-weight-bold mb-1 align-items-end small d-flex justify-content-between'>
-                <span className='text-capitalize mr-1 m-0'>
+              <div className='font-weight-bold align-items-end small d-flex justify-content-between'>
+                <span className='text-capitalize m-0'>
                   {stringTruncate(userId?.name, 10)}
                 </span>
-                <span className='small text-capitalize'>
+                <span className='small text-capitalize mr-3'>
                   {date.fromNow(createdAt)}
                 </span>
               </div>
-              <div>
+              <div className='d-flex align-items-start'>
                 <small>{stringTruncate(text, 20)}</small>
               </div>
             </div>

@@ -30,7 +30,8 @@ export const CommentItem = ({ comment }) => {
       commentId: comment._id,
       reply: {
         text,
-        userId
+        userId,
+        createdAt: Date.now()
       }
     };
     axios
@@ -43,16 +44,16 @@ export const CommentItem = ({ comment }) => {
   };
 
   return (
-    <div class='flex-column mb-4 shadow-sm border-collapse flex-lg-row col-xl-11 col-sm-12 pt-2 row text-center text-lg-left '>
-      <div class='col col-lg-1 mb-3 mb-lg-0'>
+    <div className='flex-column m-0 mb-4 shadow-sm border-collapse flex-lg-row col-xl-11 col-sm-12 pt-2 row text-center text-lg-left '>
+      <div className='col col-lg-1 mb-3 mb-lg-0'>
         <img
-          class='custom-user-pic-small rounded-circle shadow-sm'
+          className='custom-user-pic-small rounded-circle shadow-sm'
           src={imageUrl || defaultImage}
           alt='user'
         />
       </div>
-      <div class='col col-lg-8 col-xl-10 mb-3 mb-lg-0 p-0'>
-        <div class='d-flex justify-content-between align-items-end h6 mb-0 font-weight-normal text-muted text-capitalize'>
+      <div className='col col-lg-8 col-xl-11 mb-lg-0 p-0'>
+        <div className='d-flex justify-content-between align-items-end h6 mb-0 font-weight-normal text-muted text-capitalize'>
           <span className='text-capitalize font-weight-bold text-dark'>
             {name}
           </span>
@@ -62,7 +63,7 @@ export const CommentItem = ({ comment }) => {
                 onClick={() => {
                   setReply(true);
                 }}
-                class='fas fa-reply cursor-pointer text-info small mr-2'
+                className='fas fa-reply cursor-pointer text-info small mr-2'
               ></i>
             </div>
             {getUserID(state) === _id ? (
@@ -71,27 +72,25 @@ export const CommentItem = ({ comment }) => {
                   onClick={() => {
                     remove(comment._id);
                   }}
-                  class='fas fa-trash-alt small text-danger cursor-pointer'
+                  className='fas fa-trash-alt small text-danger cursor-pointer'
                 ></i>
               </div>
             ) : (
               ''
             )}
 
-            <div class='small ml-2 bg-dark text-white py-1 px-2'>
-              {date.fromNow(createdAt)}
-            </div>
+            <div className='small ml-2'>{date.fromNow(createdAt)}</div>
           </div>
         </div>
-        <div class='text-justify '>{text}</div>
+        <div className='text-justify '>{text}</div>
       </div>
-      <div class='col-md-12 mt-2'>
-        <div class='col-md-12'>
-          <div class='row'>
+      <div className='col-md-12 mt-2'>
+        <div className='col-md-12'>
+          <div className='row'>
             <div className='col-md-1 col-lg-1'></div>
-            <div class='col-md-9 col-xl-10 p-0'>
+            <div className='col-md-9 col-xl-10 p-0'>
               {replies.map(reply => (
-                <ReplyItem reply={reply} />
+                <ReplyItem key={reply._id} reply={reply} />
               ))}
             </div>
           </div>

@@ -1,8 +1,6 @@
 import React from 'react';
 import date from '../../utils/date';
-
-const defaultImage =
-  'https://www.flaticon.com/premium-icon/icons/svg/1993/1993420.svg';
+import { ASSETS } from '../../config/assetConfig';
 
 export const ReplyItem = ({ reply }) => {
   const { createdAt, text, userId } = reply;
@@ -13,7 +11,7 @@ export const ReplyItem = ({ reply }) => {
         <div className='reply-img mr-2 ml-1'>
           <img
             className='h-100 w-100 border-circle '
-            src={imageUrl || defaultImage}
+            src={imageUrl || ASSETS.defaultImg}
             alt={name}
           />
         </div>
@@ -22,12 +20,14 @@ export const ReplyItem = ({ reply }) => {
             className='font-weight-bold d-flex 
           justify-content-between align-items-center mb-1'
           >
-            <span className='text-capitalize'>{name}</span>
-            <span className='mr-2 small    text-capitalize'>
+            <span className='text-capitalize'>
+              <span>{name}</span>
+            </span>
+            <span className='mr-2 small text-capitalize'>
               {date.fromNow(createdAt)}
             </span>
           </div>
-          <div className='text-muted mb-1'>{text}</div>
+          <div className='text-muted mb-1 text-left'>{text}</div>
         </div>
       </div>
     </div>

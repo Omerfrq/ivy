@@ -6,13 +6,12 @@ import { GlobalContext } from '../../context/GlobalContext';
 
 import { NotificationContainer } from 'react-notifications';
 import Notification from '../../utils/notification';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const SigninForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { register, errors, handleSubmit } = useForm();
   const { login, guestLogout } = useContext(GlobalContext);
-  const history = useHistory();
 
   const onSubmit = data => {
     setIsLoading(true);
@@ -21,10 +20,8 @@ export const SigninForm = () => {
       .then(res => {
         Notification('success', 'User Loggedin Successfully.', 'Success', 1000);
         guestLogout();
-        setTimeout(() => {
-          login(res.data.token);
-          history.push('/');
-        }, 1200);
+        login(res.data.token);
+
         setIsLoading(false);
       })
       .catch(err => {

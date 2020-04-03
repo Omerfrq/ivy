@@ -30,12 +30,15 @@ export const AddComment = ({ resourceId }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} class='col col-lg-8 col-xl-8'>
-      <div class='form-group'>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      className='col col-lg-12 col-xl-12 p-0'
+    >
+      <div className='form-group'>
         <input
           name='text'
           ref={register({ required: true })}
-          class=' form-control'
+          className=' form-control bg-white'
           placeholder='Comment Here...'
         />
         {errors.text && <span>Please Enter the Comment.</span>}

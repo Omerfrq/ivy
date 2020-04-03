@@ -74,43 +74,43 @@ export const GalleryItem = ({ item }) => {
 
   return (
     <li className='border-0  item p-0  location-listing' type='button'>
-      <div className=' shadow-sm location-image mb-5 h-100'>
+      <div className='location-image mb-5 h-100'>
         <img
           className={`h-100 w-100 custom-radius  ${item.filter}`}
           src={item.mediaUrl}
           alt='pic'
         />
       </div>
-      <div class='location-title row mx-0'>
+      <div className='location-title row mx-0'>
         <div
           onClick={() => {
             history.push(`/${item._id}`);
           }}
-          class='col-md-11 mx-auto w-100 h-100 overflow-hidden'
+          className='col-md-11 mx-auto w-100 h-100 overflow-hidden'
         >
-          <div class='text-right'>
+          <div className='text-right'>
             <div>
               <img
-                class='custom-user-pic-small rounded-circle'
+                className='custom-user-pic-small rounded-circle'
                 src={postBy?.imageUrl || ASSETS.defaultImg}
-                alt='user'
+                alt={postBy?.name}
               />
             </div>
-            <div class='h6 mb-1'>
-              <span class='small font-weight-bold text-capitalize'>
+            <div className='h6 mb-1'>
+              <span className='small font-weight-bold text-capitalize'>
                 {title}
               </span>
             </div>
           </div>
           <TopImageCommentList comments={topComments} />
         </div>
-        <div class='align-items-center p-1 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
-          <div class='d-flex align-items-center text-dark'>
+        <div className='align-items-center p-1 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
+          <div className='d-flex align-items-center text-dark'>
             <div
               onClick={() => {
                 vote('upvote');
               }}
-              class={`btn-sm btn-outline-light rounded-circle ${
+              className={`btn-sm btn-outline-light rounded-circle ${
                 upvote ? 'bg-white text-dark' : ''
               }`}
               type='button'
@@ -118,18 +118,18 @@ export const GalleryItem = ({ item }) => {
               data-placement='top'
               data-original-title='I like this'
             >
-              <i class='far fa-thumbs-up '></i>
+              <i className='far fa-thumbs-up '></i>
             </div>
             <span className='badge badge-pill badge-light ml-1'>
               {UpvoteCount}
             </span>
           </div>
-          <div class='d-flex align-items-center text-light'>
+          <div className='d-flex align-items-center text-light'>
             <div
               onClick={() => {
                 downVote('downvote');
               }}
-              class={`btn-sm btn-outline-light rounded-circle ${
+              className={`btn-sm btn-outline-light rounded-circle ${
                 downvote ? 'bg-white text-dark' : ''
               }`}
               type='button'
@@ -137,9 +137,9 @@ export const GalleryItem = ({ item }) => {
               data-placement='top'
               data-original-title='I dislike this'
             >
-              <i class='far fa-thumbs-down '></i>
+              <i className='far fa-thumbs-down '></i>
             </div>
-            <span class='badge badge-pill badge-light ml-1'>
+            <span className='badge badge-pill badge-light ml-1'>
               {DownvoteCount}
             </span>
           </div>
@@ -147,14 +147,14 @@ export const GalleryItem = ({ item }) => {
             onClick={() => {
               history.push(`/${item._id}`);
             }}
-            class='btn-sm btn-outline-light rounded-circle'
+            className='btn-sm btn-outline-light rounded-circle'
             type='button'
             data-toggle='tooltip'
             data-placement='top'
             title=''
             data-original-title='Comment Here'
           >
-            <i class='far fa-comment' aria-hidden='true'></i>
+            <i className='far fa-comment' aria-hidden='true'></i>
           </div>
         </div>
       </div>

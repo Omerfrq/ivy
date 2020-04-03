@@ -7,6 +7,7 @@ import { SinglePost } from './views/singlePost';
 import { Signup } from './views/signup';
 import { SignIn } from './views/signin';
 import { useIsLoggedIn } from './components/hooks/useIsLoggedIn';
+import { Footer } from './components/footer/footer';
 
 function App() {
   useIsLoggedIn();
@@ -19,7 +20,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/:id' component={SinglePost} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
