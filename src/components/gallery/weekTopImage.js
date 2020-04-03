@@ -13,6 +13,7 @@ export const WeekTopImage = ({ topImage }) => {
     userVoteStatus,
     mediaUrl,
     _id,
+    title,
     filter
   } = topImage;
 
@@ -86,7 +87,7 @@ export const WeekTopImage = ({ topImage }) => {
             </div>
             <div className='h6 mb-1'>
               <span className='small font-weight-bold text-capitalize'>
-                Jenna
+                {title}
               </span>
             </div>
           </div>

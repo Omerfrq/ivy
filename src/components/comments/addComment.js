@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form } from 'reactstrap';
 import { GlobalContext } from '../../context/GlobalContext';
-import axios from 'axios';
 import { getUserID } from '../../utils/helper';
+import API from '../../api/api';
 
 export const AddComment = ({ resourceId }) => {
   const { register, handleSubmit, errors, reset } = useForm();
@@ -12,21 +12,17 @@ export const AddComment = ({ resourceId }) => {
   const onSubmit = data => {
     const { text } = data;
     const userId = getUserID(state);
-    const payload = {
+    const comment = {
       text,
       resourceId,
       userId
     };
-
-    axios
-      .post('/comment/add', payload)
-      .then(res => {
-        updateComment(res.data.savedComment);
+    API.addComment(comment)
+      .then(comment => {
+        updateComment(comment);
         reset();
       })
-      .catch(err => {
-        console.log(err.response);
-      });
+      .catch(error => console.log(error));
   };
 
   return (
@@ -38,7 +34,7 @@ export const AddComment = ({ resourceId }) => {
         <input
           name='text'
           ref={register({ required: true })}
-          className=' form-control bg-white'
+          className='form-control bg-white'
           placeholder='Comment Here...'
         />
         {errors.text && <span>Please Enter the Comment.</span>}

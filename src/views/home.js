@@ -26,6 +26,7 @@ export const Home = () => {
         loginGuest();
       }
     }
+    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return (
     <div className='container-fluid p-0 px-md-5'>
@@ -37,7 +38,6 @@ export const Home = () => {
         ) : (
           ''
         )}
-
         <main className='mt-4'>
           <div className='d-flex'>
             <div className='h4 text-capitalize d-flex justify-content-between align-items-end w-100'>
@@ -46,11 +46,10 @@ export const Home = () => {
                 <img
                   className='custom-user-pic-small'
                   src={ASSETS.defaultImg}
-                  alt=''
+                  alt='defaultImg'
                 />
               </span>
             </div>
-            {/* <span className='mt-4 border-dark ml-3 mr-5 border-top w-100'></span> */}
           </div>
           <GalleryList />
         </main>

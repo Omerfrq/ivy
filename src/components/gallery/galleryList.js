@@ -1,47 +1,29 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import { GalleryItem } from './galleryItem';
-import axios from 'axios';
-import { GlobalContext } from '../../context/GlobalContext';
-import { getUserID } from '../../utils/helper';
+import { Spinner } from 'reactstrap';
+import { usePosts } from '../hooks/usePost';
 
 export const GalleryList = () => {
-  const [posts, setPosts] = useState([]);
-  const { state } = useContext(GlobalContext);
-  const [isLoading, setLoading] = useState();
-
-  useEffect(() => {
-    if (state.isAuthenticated) {
-      setLoading(true);
-      const id = getUserID(state);
-      axios
-        .get(`/post/get/all/${id}/mostLiked`)
-        .then(res => {
-          setLoading(false);
-          setPosts(res.data);
-        })
-        .catch(err => console.log(err.response));
-    }
-  }, [state]);
+  const { isLoading, posts } = usePosts();
   return (
     <>
-      <ul className='photo-grid masonry mt-2 px-0 pb-5'>
-        {isLoading ? (
-          'loading'
-        ) : (
-          <>
-            {' '}
-            {posts.length > 0 ? (
-              <>
-                {posts.map(item => (
-                  <GalleryItem key={item._id} item={item} />
-                ))}
-              </>
-            ) : (
-              'loading'
-            )}
-          </>
-        )}
-      </ul>
+      {isLoading ? (
+        <div className='h-70 d-flex justify-content-center align-items-center'>
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          {posts.length > 0 ? (
+            <ul className='photo-grid masonry mt-2 px-0 pb-5'>
+              {posts.map(item => (
+                <GalleryItem key={item._id} item={item} />
+              ))}
+            </ul>
+          ) : (
+            <div className='h4 text-capitalize'>No Posts Added.</div>
+          )}
+        </>
+      )}
     </>
   );
 };

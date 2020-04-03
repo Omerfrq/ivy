@@ -1,60 +1,50 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { CommentList } from '../components/comments/commentList';
 import { AddComment } from '../components/comments/addComment';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { GlobalContext } from '../context/GlobalContext';
 import { Spinner } from 'reactstrap';
-import { getUserID } from '../utils/helper';
 import { ASSETS } from '../config/assetConfig';
+import { useSinglePost } from '../components/hooks/useSinglePost';
 
 export const SinglePost = () => {
   const params = useParams();
-  const { state, setActive } = useContext(GlobalContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const { state } = useContext(GlobalContext);
+  const { isLoading } = useSinglePost(params.id);
   const { activePost } = state;
-  useEffect(() => {
-    if (state.isAuthenticated) {
-      const id = getUserID(state);
-      axios
-        .get(`/post/get/${params.id}/${id}`)
-        .then(res => {
-          setActive(res.data.article);
-          setIsLoading(false);
-        })
-        .catch(err => console.log(err.response));
-    }
-    // eslint-disable-next-line
-  }, [state.isAuthenticated]);
+  const { postBy, title, mediaUrl, _id, filter, comments } = activePost;
   return (
     <div className='container-fluid px-md-2'>
       {isLoading ? (
-        <section className='h-70vh d-flex justify-content-center align-items-center mt-5 pt-5 px-md-5 '>
+        <section
+          className='h-70vh d-flex justify-content-center 
+        align-items-center mt-5 pt-5 px-md-5 '
+        >
           <Spinner />
         </section>
       ) : (
         <section className=' mt-5 pt-5 px-md-5 '>
           <div className='h4 text-capitalize d-flex justify-content-between'>
-            <span>{activePost.title}</span>
+            <span>{title}</span>
             <span>
               <img
                 className='custom-user-pic-small'
-                src={activePost.postBy.imageUrl || ASSETS.defaultImg}
-                alt=''
+                src={postBy.imageUrl || ASSETS.defaultImg}
+                alt={title}
               />
             </span>
           </div>
 
           <div className='h-70vh'>
             <img
-              className={`h-100 w-100 object-contain custom-rounded-1rem ${activePost.filter}`}
-              src={activePost.mediaUrl}
-              alt={activePost.title}
+              className={`h-100 w-100 object-contain custom-rounded-1rem ${filter}`}
+              src={mediaUrl}
+              alt={title}
             />
           </div>
           <div className='col-md-10 p-0 mt-3'>
-            <AddComment resourceId={activePost._id} />
-            <CommentList comments={activePost.comments} />
+            <AddComment resourceId={_id} />
+            <CommentList comments={comments} />
           </div>
         </section>
       )}

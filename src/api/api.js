@@ -21,10 +21,10 @@ const signUpUser = async payload => {
 
 const addComment = async payload => {
   try {
-    const res = await axios.patch(API.addComment, payload);
-    return res.data;
+    const res = await axios.post(API.addComment, payload);
+    return res.data.savedComment;
   } catch (err) {
-    throw err.response.data;
+    throw err.response;
   }
 };
 
