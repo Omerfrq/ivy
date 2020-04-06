@@ -5,6 +5,7 @@ import { ASSETS } from '../../config/assetConfig';
 
 export const TopImageComment = ({ comment }) => {
   const { userId, createdAt, text } = comment;
+
   return (
     <div className='overflow-hidden sm-d-none'>
       <div className='col-md-12 p-1 small shadow-sm border-left-custom border-white mb-2'>

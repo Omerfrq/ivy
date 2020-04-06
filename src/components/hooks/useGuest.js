@@ -3,7 +3,7 @@ import API from '../../api/api';
 import { GlobalContext } from '../../context/GlobalContext';
 
 const id = Date.now();
-const name = `Model${id}`;
+const name = `Model-${id}`;
 
 export const useGuestSignup = () => {
   const { guestLogin } = useContext(GlobalContext);

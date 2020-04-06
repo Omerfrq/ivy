@@ -12,11 +12,12 @@ export const usePosts = () => {
       const id = getUserID(state);
       axios
         .get(`/post/get/all/${id}/mostLiked`)
-        .then(res => {
+        .then((res) => {
           setLoading(false);
+          console.log(res.data);
           setPosts(res.data);
         })
-        .catch(err => console.log(err.response));
+        .catch((err) => console.log(err.response));
     }
   }, [state]);
   return { isLoading, posts };

@@ -8,7 +8,7 @@ import { getUserID } from '../utils/helper';
 import { useGuestSignup } from '../components/hooks/useGuest';
 import { ASSETS } from '../config/assetConfig';
 export const Home = () => {
-  const { state } = useContext(GlobalContext);
+  const { state, guestLogout } = useContext(GlobalContext);
   const [topImage, setTopImage] = useState('');
   const { loginGuest } = useGuestSignup();
 
@@ -17,10 +17,15 @@ export const Home = () => {
       const id = getUserID(state);
       axios
         .get(`/post/top/${id}`)
-        .then(res => {
+        .then((res) => {
           setTopImage(res.data[0]);
         })
-        .catch(err => console.log(err.response));
+        .catch((err) => {
+          if (!err.response.data.loggedIn) {
+            guestLogout();
+            window.location.replace('/');
+          }
+        });
     } else {
       if (localStorage.getItem('token') === null) {
         loginGuest();

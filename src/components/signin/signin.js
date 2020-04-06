@@ -13,18 +13,17 @@ export const SigninForm = () => {
   const { register, errors, handleSubmit } = useForm();
   const { login, guestLogout } = useContext(GlobalContext);
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     setIsLoading(true);
     axios
       .post('/signin', data)
-      .then(res => {
+      .then((res) => {
         Notification('success', 'User Loggedin Successfully.', 'Success', 1000);
         guestLogout();
         login(res.data.token);
-
         setIsLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setIsLoading(false);
         Notification('error', err.response.data.message, 'Failed', 1000);
       });
