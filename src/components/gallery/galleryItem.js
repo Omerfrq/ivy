@@ -13,34 +13,42 @@ export const GalleryItem = ({ item }) => {
     downvoteCount,
     userVoteStatus,
     _id,
-    postBy
+    postBy,
   } = item;
 
   const [upvote, setUpVote] = useState(userVoteStatus.upvote || false);
   const [UpvoteCount, setUpVoteCount] = useState(upvoteCount);
   const [downvote, setDownVote] = useState(userVoteStatus.downvote || false);
   const [DownvoteCount, setDownVoteCount] = useState(downvoteCount);
-  const { state } = useContext(GlobalContext);
+  const { state, guestLogout, logout } = useContext(GlobalContext);
 
-  const userId = state.type === 'guest' ? state.guest.id : state.user._id;
+  const userId = state.type === 'guest' ? state.guest._id : state.user._id;
 
-  const reaction = type => {
+  const reaction = (type) => {
     const payload = {
       resourceId: _id,
       vote: {
         userId,
-        type
-      }
+        type,
+      },
     };
     axios
       .patch('/vote', payload)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
       })
-      .catch(err => console.log(err.response));
+      .catch((err) => {
+        if (!err.response.data.loggedIn) {
+          if (state.type === 'guest') {
+            guestLogout();
+          } else {
+            logout();
+          }
+        }
+      });
   };
 
-  const vote = type => {
+  const vote = (type) => {
     setUpVote(!upvote);
     if (upvote) {
       setUpVoteCount(UpvoteCount - 1);
@@ -54,7 +62,7 @@ export const GalleryItem = ({ item }) => {
     reaction(type);
   };
 
-  const downVote = type => {
+  const downVote = (type) => {
     setDownVote(!downvote);
     downvote
       ? setDownVoteCount(DownvoteCount - 1)
@@ -76,7 +84,7 @@ export const GalleryItem = ({ item }) => {
     <li className='border-0  item p-0  location-listing' type='button'>
       <div className='location-image mb-5 h-100'>
         <img
-          className={`h-100 w-100 custom-radius  ${item.filter}`}
+          className={`h-100 w-100 custom-rounded-1rem  ${item.filter}`}
           src={item.mediaUrl}
           alt='pic'
         />
@@ -86,7 +94,7 @@ export const GalleryItem = ({ item }) => {
           onClick={() => {
             history.push(`/${item._id}`);
           }}
-          className='col-md-11 mx-auto w-100 h-100 overflow-hidden'
+          className='col-md-11 mx-auto w-100 h-90 overflow-hidden'
         >
           <div className='text-right'>
             <div>
@@ -104,7 +112,7 @@ export const GalleryItem = ({ item }) => {
           </div>
           <TopImageCommentList comments={topComments} />
         </div>
-        <div className='align-items-center p-1 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
+        <div className='align-items-center h-10 p-1 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
           <div className='d-flex align-items-center text-dark'>
             <div
               onClick={() => {

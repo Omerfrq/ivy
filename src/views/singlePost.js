@@ -28,7 +28,7 @@ export const SinglePost = () => {
             <span>{title}</span>
             <span>
               <img
-                className='custom-user-pic-small'
+                className='custom-user-pic-small rounded-circle'
                 src={postBy.imageUrl || ASSETS.defaultImg}
                 alt={title}
               />

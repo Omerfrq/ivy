@@ -16,46 +16,41 @@ export const WeekTopImage = ({ topImage }) => {
     mediaUrl,
     _id,
     title,
-    filter
+    filter,
   } = topImage;
-
   const initialState = {
     upvote: userVoteStatus.upvote,
     UpvoteCount: topImage.upvoteCount,
     downvote: userVoteStatus.downvote,
-    DownvoteCount: downvoteCount
+    DownvoteCount: downvoteCount,
   };
-
   const [localState, dispatch] = useImmerReducer(voteReducer, initialState);
-
   const { upvote, UpvoteCount, downvote, DownvoteCount } = localState;
-
   const history = useHistory();
-
   const userId = getUserID(state);
 
-  const reaction = type => {
+  const reaction = (type) => {
     const payload = {
       resourceId: _id,
       vote: {
         userId,
-        type
-      }
+        type,
+      },
     };
     axios
       .patch('/vote', payload)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
       })
-      .catch(err => console.log(err.response));
+      .catch((err) => console.log(err.response));
   };
 
-  const vote = type => {
+  const vote = (type) => {
     dispatch({ type: 'upvote' });
     reaction(type);
   };
 
-  const downVote = type => {
+  const downVote = (type) => {
     dispatch({ type: 'downvote' });
     reaction(type);
   };

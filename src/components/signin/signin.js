@@ -78,7 +78,7 @@ export const SigninForm = () => {
           <span> Already A Member ? </span>
           <span class='font-weight-bold'>
             {' '}
-            <Link to='/signup'>Signup</Link>{' '}
+            <Link to='/sign-up'>Signup</Link>{' '}
           </span>
         </p>
         <div></div>

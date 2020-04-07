@@ -8,7 +8,7 @@ import { getUserID } from '../utils/helper';
 import { useGuestSignup } from '../components/hooks/useGuest';
 import { ASSETS } from '../config/assetConfig';
 export const Home = () => {
-  const { state, guestLogout } = useContext(GlobalContext);
+  const { state, logout, guestLogout } = useContext(GlobalContext);
   const [topImage, setTopImage] = useState('');
   const { loginGuest } = useGuestSignup();
 
@@ -22,8 +22,11 @@ export const Home = () => {
         })
         .catch((err) => {
           if (!err.response.data.loggedIn) {
-            guestLogout();
-            window.location.replace('/');
+            if (state.type === 'guest') {
+              guestLogout();
+            } else {
+              logout();
+            }
           }
         });
     } else {
@@ -31,7 +34,6 @@ export const Home = () => {
         loginGuest();
       }
     }
-    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return (
     <div className='container-fluid p-0 px-md-5'>

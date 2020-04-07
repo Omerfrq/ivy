@@ -477,6 +477,9 @@ textarea:focus {
   width: 24px;
   height: 24px;
 }
+.h-90 {
+  height: 90%;
+}
 
 /* .location-listing:hover .location-image img {
   filter: blur(2px);
@@ -520,6 +523,13 @@ textarea:focus {
 /* @media Max-Width 575.98px */
 
 @media (max-width: 575.98px) {
+  .h-90 {
+    height: 85%;
+  }
+
+  .h-10 {
+    height: 15%;
+  }
   .custom-scroll-height__footer {
     height: 7%;
   }
@@ -563,6 +573,13 @@ textarea:focus {
 /* @media Max-Width 340.98px */
 
 @media (max-width: 340.98px) {
+  .h-90 {
+    height: 86%;
+  }
+
+  .h-10 {
+    height: 14%;
+  }
   .masonry {
     column-count: 2;
   }

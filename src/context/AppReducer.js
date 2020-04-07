@@ -9,8 +9,8 @@ export default (state, action) => {
       return;
 
     case 'GUEST_LOGIN':
-      localStorage.setItem('guest', JSON.stringify(action.payload));
-      state.guest = action.payload;
+      localStorage.setItem('guest', action.payload);
+      state.guest = jwt.decode(action.payload);
       state.type = 'guest';
       state.isAuthenticated = true;
       return;
@@ -22,10 +22,10 @@ export default (state, action) => {
       return;
 
     case 'IS_LOGGED_IN_GUEST':
-      const guest = localStorage.getItem('guest');
+      const guest = jwt.decode(localStorage.getItem('guest'));
       state.type = 'guest';
       state.isAuthenticated = true;
-      state.guest = JSON.parse(guest);
+      state.guest = guest;
       return;
 
     case 'LOGOUT':
@@ -39,7 +39,7 @@ export default (state, action) => {
       return;
 
     case 'REMOVE_TAG':
-      state.tags = state.tags.filter(tag => tag !== action.payload);
+      state.tags = state.tags.filter((tag) => tag !== action.payload);
       return;
 
     case 'SET_FILTER':
@@ -54,7 +54,7 @@ export default (state, action) => {
       state.activePost.comments.push(action.payload);
       return;
     case 'UPDATE_REPLY':
-      state.activePost.comments.map(comment =>
+      state.activePost.comments.map((comment) =>
         comment._id === action.commentId
           ? comment.replies.push(action.payload)
           : ''
@@ -73,6 +73,7 @@ export default (state, action) => {
       localStorage.removeItem('guest');
       state.type = null;
       state.user = null;
+      state.isAuthenticated = false;
       return;
 
     default:

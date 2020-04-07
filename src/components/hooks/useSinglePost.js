@@ -2,24 +2,37 @@ import { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { getUserID } from '../../utils/helper';
 import axios from 'axios';
-export const useSinglePost = resourceId => {
-  const { state, setActive } = useContext(GlobalContext);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    console.log(state);
-    if (state.isAuthenticated) {
-      console.log(state);
-      const id = getUserID(state);
+import { useGuestSignup } from './useGuest';
 
+export const useSinglePost = (resourceId) => {
+  const { state, setActive, guestLogout, logout } = useContext(GlobalContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const { loginGuest } = useGuestSignup();
+
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      const id = getUserID(state);
       axios
         .get(`/post/get/${resourceId}/${id}`)
-        .then(res => {
+        .then((res) => {
           setActive(res.data.article);
           setIsLoading(false);
         })
-        .catch(err => console.log(err.response));
+        .catch((err) => {
+          if (!err.response.data.loggedIn) {
+            if (state.type === 'guest') {
+              guestLogout();
+            } else {
+              logout();
+            }
+          }
+        });
+    } else {
+      if (localStorage.getItem('token') === null) {
+        loginGuest();
+      }
     }
-    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return { isLoading };
 };
