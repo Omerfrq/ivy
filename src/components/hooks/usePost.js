@@ -2,15 +2,13 @@ import { useEffect, useState, useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { getUserID } from '../../utils/helper';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { useGuestSignup } from './useGuest';
 
 export const usePosts = () => {
   const [posts, setPosts] = useState([]);
-  const history = useHistory();
+
   const { state, logout, guestLogout } = useContext(GlobalContext);
   const [isLoading, setLoading] = useState(true);
-  const { loginGuest } = useGuestSignup();
+
   useEffect(() => {
     if (state.isAuthenticated) {
       const id = getUserID(state);
@@ -31,6 +29,7 @@ export const usePosts = () => {
           }
         });
     }
+    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return { isLoading, posts };
 };

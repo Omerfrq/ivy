@@ -7,6 +7,9 @@ import { getUserID } from '../../utils/helper';
 import { useImmerReducer } from 'use-immer';
 import { voteReducer } from '../reducer/voteReducer';
 
+import Notification from '../../utils/notification';
+import { NotificationContainer } from 'react-notifications';
+
 export const WeekTopImage = ({ topImage }) => {
   const { state } = useContext(GlobalContext);
   const {
@@ -26,6 +29,7 @@ export const WeekTopImage = ({ topImage }) => {
   };
   const [localState, dispatch] = useImmerReducer(voteReducer, initialState);
   const { upvote, UpvoteCount, downvote, DownvoteCount } = localState;
+
   const history = useHistory();
   const userId = getUserID(state);
 
@@ -42,7 +46,19 @@ export const WeekTopImage = ({ topImage }) => {
       .then((res) => {
         console.log(res.data);
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {
+        if (!err.response.data.loggedIn) {
+          Notification(
+            'error',
+            'Your Account Was Suspensed By Admin.',
+            'Suspended',
+            '1500'
+          );
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        }
+      });
   };
 
   const vote = (type) => {
@@ -57,6 +73,7 @@ export const WeekTopImage = ({ topImage }) => {
 
   return (
     <div className='location-listing'>
+      <NotificationContainer />
       <div className='location-title  mx-0 row'>
         <div className='align-items-center align-items-md-end custom-scroll-none d-flex flex-column h-75 justify-content-center justify-content-md-end mr-lg-5 mr-md-3 overflow-auto section-comment w-100'>
           <div className='section-comment__user text-center'>

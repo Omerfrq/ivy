@@ -17,7 +17,7 @@ export const UploadImage = ({ setModal }) => {
     inputFile,
     onChange,
     onImageClick,
-    resetPlaceholder
+    resetPlaceholder,
   } = usePlaceHolder();
 
   const { state } = useContext(GlobalContext);
@@ -25,7 +25,7 @@ export const UploadImage = ({ setModal }) => {
 
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     setLoading(true);
     const { tags, activeFilter } = state;
     const { description, title } = data;
@@ -44,7 +44,7 @@ export const UploadImage = ({ setModal }) => {
 
       axios
         .post('/post/add', formdata)
-        .then(res => {
+        .then((res) => {
           setLoading(false);
           Notification(
             'success',
@@ -55,9 +55,22 @@ export const UploadImage = ({ setModal }) => {
           reset();
           resetPlaceholder();
         })
-        .catch(err => {
+        .catch((err) => {
           setLoading(false);
-          Notification('error', 'Unable to Upload Image.', 'Error', 1000);
+          if (!err.response.data.loggedIn) {
+            Notification(
+              'error',
+              'Your Account Was Suspensed By Admin.',
+              'Suspended',
+              '1500'
+            );
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            setLoading(false);
+            Notification('error', 'Unable to Upload Image.', 'Error', 1000);
+          }
         });
     }
   };

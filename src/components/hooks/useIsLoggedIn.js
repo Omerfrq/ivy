@@ -9,6 +9,13 @@ export const useIsLoggedIn = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const guest = localStorage.getItem('guest');
+
+    if (token === 'undefined') {
+      localStorage.removeItem('token');
+    } else if (guest === 'undefined') {
+      localStorage.removeItem('guest');
+    }
+
     if (token !== null) {
       isLoggedIn();
       setAuthorizationToken();

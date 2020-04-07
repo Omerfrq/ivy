@@ -4,6 +4,9 @@ import axios from 'axios';
 import { GlobalContext } from '../../context/GlobalContext';
 import { TopImageCommentList } from './topImageCommentList';
 import { ASSETS } from '../../config/assetConfig';
+
+import Notification from '../../utils/notification';
+import { NotificationContainer } from 'react-notifications';
 export const GalleryItem = ({ item }) => {
   const history = useHistory();
   const {
@@ -20,7 +23,7 @@ export const GalleryItem = ({ item }) => {
   const [UpvoteCount, setUpVoteCount] = useState(upvoteCount);
   const [downvote, setDownVote] = useState(userVoteStatus.downvote || false);
   const [DownvoteCount, setDownVoteCount] = useState(downvoteCount);
-  const { state, guestLogout, logout } = useContext(GlobalContext);
+  const { state } = useContext(GlobalContext);
 
   const userId = state.type === 'guest' ? state.guest._id : state.user._id;
 
@@ -39,11 +42,15 @@ export const GalleryItem = ({ item }) => {
       })
       .catch((err) => {
         if (!err.response.data.loggedIn) {
-          if (state.type === 'guest') {
-            guestLogout();
-          } else {
-            logout();
-          }
+          Notification(
+            'error',
+            'Your Account Was Suspensed By Admin.',
+            'Suspended',
+            '1500'
+          );
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         }
       });
   };
@@ -82,6 +89,7 @@ export const GalleryItem = ({ item }) => {
 
   return (
     <li className='border-0  item p-0  location-listing' type='button'>
+      <NotificationContainer />
       <div className='location-image mb-5 h-100'>
         <img
           className={`h-100 w-100 custom-rounded-1rem  ${item.filter}`}

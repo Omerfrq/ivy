@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { GlobalContext } from '../../context/GlobalContext';
 import { ReplyItem } from './replyItem';
 import { getUserID } from '../../utils/helper';
+import Notification from '../../utils/notification';
+import { NotificationContainer } from 'react-notifications';
 
 const defaultImage =
   'https://www.flaticon.com/premium-icon/icons/svg/1993/1993420.svg';
@@ -16,35 +18,48 @@ export const CommentItem = ({ comment }) => {
   const { register, errors, handleSubmit, reset } = useForm();
   const { state, updateReply, removeComment } = useContext(GlobalContext);
 
-  const remove = commentId => {
+  const remove = (commentId) => {
     axios
       .delete(`/comment/delete/${commentId}`)
-      .then(res => removeComment(commentId))
-      .catch(err => console.log(err.response));
+      .then((res) => removeComment(commentId))
+      .catch((err) => console.log(err.response));
   };
 
-  const onSubmit = data => {
-    const userId = state.type === 'guest' ? state.guest.id : state.user._id;
+  const onSubmit = (data) => {
+    const userId = state.type === 'guest' ? state.guest._id : state.user._id;
     const { text } = data;
     const payload = {
       commentId: comment._id,
       reply: {
         text,
         userId,
-        createdAt: Date.now()
-      }
+        createdAt: Date.now(),
+      },
     };
     axios
       .patch('/comment/reply/add', payload)
-      .then(res => {
+      .then((res) => {
         updateReply(res.data.savedReply, comment._id);
         reset();
       })
-      .catch(err => console.log(err.response));
+      .catch((err) => {
+        if (!err.response.data.loggedIn) {
+          Notification(
+            'error',
+            'Your Account Was Suspensed By Admin.',
+            'Suspended',
+            '1500'
+          );
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        }
+      });
   };
 
   return (
     <div className='flex-column m-0 mb-4 shadow-sm border-collapse flex-lg-row col-xl-11 col-sm-12 pt-2 row text-center text-lg-left '>
+      <NotificationContainer />
       <div className='col col-lg-1 mb-3 mb-lg-0'>
         <img
           className='custom-user-pic-small rounded-circle shadow-sm'
@@ -89,7 +104,7 @@ export const CommentItem = ({ comment }) => {
           <div className='row'>
             <div className='col-md-1 col-lg-1'></div>
             <div className='col-md-9 col-xl-10 p-0'>
-              {replies.map(reply => (
+              {replies.map((reply) => (
                 <ReplyItem key={reply._id} reply={reply} />
               ))}
             </div>

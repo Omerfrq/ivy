@@ -33,6 +33,7 @@ export const useSinglePost = (resourceId) => {
         loginGuest();
       }
     }
+    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return { isLoading };
 };

@@ -34,6 +34,7 @@ export const Home = () => {
         loginGuest();
       }
     }
+    // eslint-disable-next-line
   }, [state.isAuthenticated]);
   return (
     <div className='container-fluid p-0 px-md-5'>
