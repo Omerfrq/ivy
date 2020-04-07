@@ -120,7 +120,7 @@ export const GalleryItem = ({ item }) => {
           </div>
           <TopImageCommentList comments={topComments} />
         </div>
-        <div className='align-items-center h-10 p-1 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
+        <div className='align-items-center h-10 bg-muted custom-radius-bottom shadow-lg bg-muted d-flex justify-content-around w-100 border-top  custom-font-size-small'>
           <div className='d-flex align-items-center text-dark'>
             <div
               onClick={() => {
