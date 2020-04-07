@@ -34,7 +34,7 @@ export const UploadImage = ({ setModal }) => {
       setLoading(false);
     } else {
       const formdata = new FormData();
-      const id = state.type === 'guest' ? state.guest.id : state.user._id;
+      const id = state.type === 'guest' ? state.guest._id : state.user._id;
       formdata.append('postBy', id);
       formdata.append('mediaUrl', file);
       formdata.append('description', description);
@@ -45,6 +45,7 @@ export const UploadImage = ({ setModal }) => {
       axios
         .post('/post/add', formdata)
         .then((res) => {
+          console.log(res.data);
           setLoading(false);
           Notification(
             'success',
