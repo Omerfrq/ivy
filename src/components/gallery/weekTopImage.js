@@ -143,6 +143,9 @@ export const WeekTopImage = ({ topImage }) => {
             </span>
           </div>
           <div
+            onClick={() => {
+              history.push(`/${_id}`);
+            }}
             className='btn-sm btn-outline-light rounded-circle'
             type='button'
             data-toggle='tooltip'
@@ -150,13 +153,7 @@ export const WeekTopImage = ({ topImage }) => {
             title=''
             data-original-title='Leave a comment'
           >
-            <i
-              onClick={() => {
-                history.push(`/${_id}`);
-              }}
-              className='far fa-comment'
-              aria-hidden='true'
-            ></i>
+            <i className='far fa-comment' aria-hidden='true'></i>
           </div>
         </div>
       </div>

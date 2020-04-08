@@ -8,6 +8,13 @@
   height: auto;
 }
 
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 400;
+}
 body {
   font-family: 'Quicksand', sans-serif;
   background-color: #f8f9fa;
