@@ -12,6 +12,7 @@ import { NotificationContainer } from 'react-notifications';
 
 export const WeekTopImage = ({ topImage }) => {
   const { state } = useContext(GlobalContext);
+
   const {
     topComments,
     downvoteCount,
@@ -75,7 +76,12 @@ export const WeekTopImage = ({ topImage }) => {
     <div className='location-listing'>
       <NotificationContainer />
       <div className='location-title  mx-0 row'>
-        <div className='align-items-center align-items-md-end custom-scroll-none d-flex flex-column h-75 justify-content-center justify-content-md-end mr-lg-5 mr-md-3 overflow-auto section-comment w-100'>
+        <div
+          onClick={() => {
+            history.push(`/${_id}`);
+          }}
+          className='align-items-center align-items-md-end custom-scroll-none d-flex flex-column h-90 justify-content-center justify-content-md-end mr-lg-5 mr-md-3 overflow-auto section-comment w-100'
+        >
           <div className='section-comment__user text-center'>
             <div>
               <img
@@ -98,6 +104,9 @@ export const WeekTopImage = ({ topImage }) => {
         <div className='align-items-center border-top custom-font-size-small d-flex justify-content-around py-xl-2 w-100'>
           <div className='align-items-center d-flex'>
             <div
+              onClick={() => {
+                vote('upvote');
+              }}
               className={`btn-sm btn-outline-light rounded-circle ${
                 upvote ? 'bg-white text-dark' : ''
               }`}
@@ -107,13 +116,7 @@ export const WeekTopImage = ({ topImage }) => {
               title=''
               data-original-title='I like this'
             >
-              <i
-                onClick={() => {
-                  vote('upvote');
-                }}
-                className='far fa-thumbs-up'
-                aria-hidden='true'
-              ></i>
+              <i className='far fa-thumbs-up' aria-hidden='true'></i>
             </div>
             <span className='badge badge-pill badge-light ml-1'>
               {UpvoteCount}
@@ -121,6 +124,9 @@ export const WeekTopImage = ({ topImage }) => {
           </div>
           <div className='align-items-center d-flex'>
             <div
+              onClick={() => {
+                downVote('downvote');
+              }}
               className={`btn-sm btn-outline-light rounded-circle ${
                 downvote ? 'bg-white text-dark' : ''
               }`}
@@ -130,13 +136,7 @@ export const WeekTopImage = ({ topImage }) => {
               title=''
               data-original-title='I dislike this'
             >
-              <i
-                onClick={() => {
-                  downVote('downvote');
-                }}
-                className='far fa-thumbs-down'
-                aria-hidden='true'
-              ></i>
+              <i className='far fa-thumbs-down' aria-hidden='true'></i>
             </div>
             <span className='badge badge-pill badge-light ml-1'>
               {DownvoteCount}
