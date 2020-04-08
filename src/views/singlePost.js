@@ -30,6 +30,7 @@ export const SinglePost = () => {
         <section className=' mt-5 pt-5 px-md-5 '>
           {isOpen ? (
             <Lightbox
+              wrapperClassName={filter}
               mainSrc={mediaUrl}
               onCloseRequest={() => setIsOpen(false)}
             />
