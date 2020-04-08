@@ -8,6 +8,10 @@
   height: auto;
 }
 
+.ril__toolbarRightSide {
+  z-index: 1100 !important;
+}
+
 .fixed-top {
   position: fixed;
   top: 0;
